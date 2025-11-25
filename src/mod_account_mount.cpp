@@ -41,9 +41,20 @@ public:
             if (sConfigMgr->GetOption<bool>("Account.Mounts.Announce", false))
                 ChatHandler(pPlayer->GetSession()).SendSysMessage("This server is running the |cff4CFF00AccountMounts |rmodule.");
 
+/* 
             std::vector<uint32> Guids;
+            uint32 AccountEmail = pPlayer->GetSession()->GetEmail();
+            QueryResult result1 = CharacterDatabase.Query("SELECT `guid`, `race` FROM `characters` WHERE `email`={};", AccountEmail);
+
+
+			std::vector<uint32> Guids;
             uint32 playerAccountID = pPlayer->GetSession()->GetAccountId();
             QueryResult result1 = CharacterDatabase.Query("SELECT `guid`, `race` FROM `characters` WHERE `account`={};", playerAccountID);
+*/
+
+			std::vector<uint32> Guids;
+            uint32 playerAccountID = pPlayer->GetSession()->GetAccountId();
+            QueryResult result1 = CharacterDatabase.Query("select c.guid, c.race from acore_characters.account_wide_join awj inner join acore_characters.account_wide_join awj2 on awj.accountGroupID = awj2.accountGroupID inner join acore_characters.characters c on awj2.accountID = c.account where awj.accountID = {}", playerAccountID);
 
             if (!result1)
                 return;
