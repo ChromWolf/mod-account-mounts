@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS acore_characters.account_wide_join;
 CREATE TABLE acore_characters.account_wide_join (
 	accountGroupID int not null,
 	accountID int not null
+	PRIMARY KEY (accountGroupID, accountID)
 );
 
 INSERT INTO account_wide_join (accountGroupID, accountID)
